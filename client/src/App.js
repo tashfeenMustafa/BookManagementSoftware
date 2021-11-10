@@ -1,11 +1,11 @@
 import * as React from 'react';
-import LoginPage from './LoginPage.js';
-import Dashboard from './Dashboard.js';
-import Home from './Home.js';
-import AllBooks from './AllBooks.js';
-import AddNewBook from './AddNewBook.js';
+import LoginPage from './LoginPage/LoginPage.js';
+import Dashboard from './Dashboard/Dashboard.js';
+import Home from './Home/Home.js';
+import AllBooks from './AllBooks/AllBooks.js';
+import AddNewBook from './AddNewBook/AddNewBook.js';
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import './css/App.css';
 
 
 
