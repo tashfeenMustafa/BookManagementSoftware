@@ -8,10 +8,35 @@ import { books } from '../data.js';
 
 function AllBooks() {
     const [booksList] = useState(books)
+    const [search, setSearchTerm] = useState('')
+
+    const [searchResults, setSearchResults] = useState([])
+
+    let onSearch = (searchTerm) => {
+        console.log(searchTerm)
+        setSearchTerm(searchTerm)
+        getSearchResults(searchTerm)
+    }
+
+    let getSearchResults = (searchTerm) => {
+        let results = booksList.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        setSearchResults(results)
+    }
 
     const allBooks = booksList.map((book, index) => {
         return (
             <BooksListItem 
+                key={index}
+                index={index}
+                book={book}
+            />
+        )
+    })
+
+    const searchResultsBooks = searchResults.map((book, index) => {
+        return (
+            <BooksListItem 
+                key={index}
                 index={index}
                 book={book}
             />
@@ -24,7 +49,9 @@ function AllBooks() {
                 variant="h3">
                     All Books
             </Typography>
-            <SearchBook />
+            <SearchBook 
+                searchTerm={search}
+                onSearch={onSearch} />
             <div className="add-new-book-btn">
                 <Link to="/add-new-book">
                     <Button sx={{
@@ -35,7 +62,7 @@ function AllBooks() {
                     </Button>
                 </Link>
             </div>
-            {allBooks ? allBooks : null}
+            {search.length ? searchResultsBooks : allBooks}
         </div>
     );
 }

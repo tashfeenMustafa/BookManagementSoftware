@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import SaveBookName from './SaveBookName.js';
@@ -7,6 +7,11 @@ import Content from '../Contents/Content.js';
 import { contentTypes } from '../data.js';
 
 function AddNewBook() {
+    const [showContent, setShowContent] = useState(false)
+
+    let handleAddContentButton = () => {
+        setShowContent(!showContent)
+    }
 
     const contents = contentTypes.map((contentType, index) => {
         return (
@@ -24,8 +29,12 @@ function AddNewBook() {
                         Add New Book
                 </Typography>
                 <SaveBookName />
-                <Button variant="contained">Add Content</Button>
-                <AddContentBox />
+                <Button 
+                    onClick={handleAddContentButton}
+                    variant="contained">
+                        Add Content
+                </Button>
+                {showContent ? <AddContentBox /> : ''}
                 {contents ? contents : null}
             </div>
         </div>

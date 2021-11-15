@@ -3,7 +3,11 @@ import TextField from '@mui/material/TextField';
 import SearchIcon from '@mui/icons-material/Search';
 import Typography from '@mui/material/Typography';
 
-export default function SearchBook() {
+export default function SearchBook(props) {
+    let handleSearchChange = (event) => {
+        props.onSearch(event.target.value)
+    }
+    
     return ( 
         <TextField
             sx={{
@@ -24,6 +28,8 @@ export default function SearchBook() {
                     Search by book title 
                 </Typography>
             }
-            variant="standard" />
+            variant="standard" 
+            value={props.searchTerm}
+            onChange={handleSearchChange} />
     )
 }

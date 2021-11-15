@@ -11,7 +11,7 @@ export default function ContentFileTitle(props) {
                     width: '100%'
                 }}  
                 id="standard-basic" 
-                label="Content Title" 
+                label={props.label} 
                 variant="standard" />
         </Grid>
     )

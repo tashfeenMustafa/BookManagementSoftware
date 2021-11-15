@@ -1,5 +1,5 @@
 // All Books Placeholder Data
-export const books = [
+export let books = [
     {
         "id": 0,
         "title": "Book Title 1"

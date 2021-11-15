@@ -5,11 +5,11 @@ export default function ContentStartPageInput(props) {
     return ( 
         <TextField 
             sx={{
-                margin: '0 2% 0 2%',
-                width: '10%'
+                margin: '0 0 0 1%',
+                width: '5%'
             }}  
             id="standard-basic" 
-            label="S" 
+            label={props.label}
             variant="standard" />
     )
 }
