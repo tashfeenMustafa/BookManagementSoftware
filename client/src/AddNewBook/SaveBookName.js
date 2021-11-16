@@ -9,6 +9,10 @@ export default function SaveBookName(props) {
         props.handleSaveBookTitle(event.target.value)
     }
 
+    const handleClick = (event) => {
+        props.handleSaveBookClick()
+    }
+
     return ( 
         <Grid container>
             <Grid item xs={6}>
@@ -24,8 +28,11 @@ export default function SaveBookName(props) {
                 onChange={handleChange} />
             </Grid>
             <Grid item xs={6}>
-                <Link to={`/books/${props.bookTitle}`}>
+                <Link
+                    onClick={handleClick}
+                    to={`/books/${props.bookTitle}`}>
                     <Button 
+                        disabled={props.disableSaveBookButton}
                         variant="contained">
                             Save Book
                     </Button>

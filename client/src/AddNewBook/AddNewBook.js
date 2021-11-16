@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -12,21 +12,41 @@ function AddNewBook() {
     
     let pageTitle = 'Add New Book'
     
-    const [showContent, setShowContent] = useState(false)
+    const [showAddContentBox, setShowContent] = useState(false)
     const [bookTitle, setBookTitle] = useState(() => bookTitleParams ? bookTitleParams : '')
+    const [pageParams, setPageParams] = useState(() => bookTitleParams ? bookTitleParams : '')
+    
     const [contentsList, setContents] = useState([])
+    
+    const [disableSaveBookButton, setDisableSaveBookButton] = useState(true) 
+    const [disableAddContentButton, setDisableAddContentButton] = useState(true)
+
+    useEffect(() => {
+        if (bookTitle === '') {
+            setDisableSaveBookButton(true)
+        }
+        if (pageParams !== '') {
+            setDisableAddContentButton(false)
+        }
+    }, [bookTitle, pageParams])
 
     const handleAddContentButton = () => {
-        setShowContent(!showContent)
+        setShowContent(!showAddContentBox)
     }
 
     const handleSaveContent = (newContent) => {
         setContents(contentsList => [...contentsList, newContent])
     }
 
-    const handleSaveBookTitle = (bookTitle) => {
+    const handleSaveBookChange = (bookTitle) => {
+        setDisableSaveBookButton(false)
         setBookTitle(bookTitle)
-    } 
+    }
+
+    const handleSaveBookClick = () => {
+        setDisableSaveBookButton(true)
+        setPageParams(bookTitle)
+    }
 
     const contents_List = contentsList.map((content, index) => {
         return (
@@ -44,15 +64,18 @@ function AddNewBook() {
                     {bookTitleParams ? bookTitleParams : pageTitle}
             </Typography>
             <SaveBookName
+                disableSaveBookButton={disableSaveBookButton}
                 type={bookTitleParams ? "params" : "empty"}
                 bookTitle={bookTitle}
-                handleSaveBookTitle={handleSaveBookTitle} />
-            <Button 
+                handleSaveBookTitle={handleSaveBookChange}
+                handleSaveBookClick={handleSaveBookClick} />
+            <Button
+                disabled={disableAddContentButton} 
                 onClick={handleAddContentButton}
                 variant="contained">
                     Add Content
             </Button>
-            {showContent ? 
+            {showAddContentBox ? 
                 <AddContentBox
                     handleSaveContent={handleSaveContent} /> 
                 : 
