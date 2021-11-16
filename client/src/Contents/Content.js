@@ -17,11 +17,32 @@ export default function Content(props) {
                     p: 2, 
                     border: '1px solid grey' 
             }}>
-            <ContentTitleAndSelect contentType={props.contentType} />
-            <ContentStartPageInput />
-            <ContentEndPageInput />
-            <ContentNumberOfPagesInput />
-            <ContentEditDeleteButton />
+            {
+                props.content.type === "comparison-report" ? 
+                <>
+                    <ContentTitleAndSelect 
+                        title={props.content.title1 + ' and ' + props.content.title2} />
+                    <ContentStartPageInput 
+                        s={props.content.s1} />
+                    <ContentEndPageInput
+                        e={props.content.e2} />
+                    <ContentNumberOfPagesInput
+                        n={props.content.n1 + props.content.n2} />
+                    <ContentEditDeleteButton /> 
+                </>
+                :
+                <>
+                    <ContentTitleAndSelect 
+                        title={props.content.title1} />
+                    <ContentStartPageInput 
+                        s={props.content.s1} />
+                    <ContentEndPageInput
+                        e={props.content.e1} />
+                    <ContentNumberOfPagesInput
+                        n={props.content.n1} />
+                    <ContentEditDeleteButton />  
+                </>
+            }
         </Box>
     )
 }

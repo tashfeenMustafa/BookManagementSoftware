@@ -15,11 +15,7 @@ export default function ContentTitleAndSelect(props) {
                             width: '100%'
                         }}
                     >
-                        {props.contentType.name }
-                    <div style={{ 
-                            float: 'right' 
-                    }}>
-                    </div>
+                        {props.contentType ? props.contentType : props.title}
                     </Typography>
             } />
         </FormGroup>
