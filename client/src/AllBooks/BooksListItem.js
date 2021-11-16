@@ -5,8 +5,21 @@ import Checkbox from '@mui/material/Checkbox';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const theme = createTheme({
+  components: {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          margin: 'auto',
+        },
+      },
+    },
+  },
+});
 
 export default function BooksListItem(props) {
     return (
@@ -14,7 +27,7 @@ export default function BooksListItem(props) {
         key={props.index} 
         sx={{ 
             margin: '1% 0 1% 0',
-            p: 1, 
+            p: '12px 8px 12px 8px', 
             border: '1px solid grey' 
         }}>
             <Grid 
@@ -38,21 +51,25 @@ export default function BooksListItem(props) {
                     sm={6} 
                     md={6} 
                     lg={6}>
-                        <div style={{
-                            margin: 'auto',
-                            float: 'right',
-                        }}>
-                            <span style={{
-                                paddingRight: '15px',
+                        <ThemeProvider theme={theme}>
+                            <div style={{
+                                margin: 'auto',
+                                float: 'right',
+                                width: '10%',
+                                paddingTop: '7px'
                             }}>
-                                <EditIcon />
-                            </span>
-                            <span style={{
-                                paddingRight: '10px'
-                            }}>
-                                <DeleteIcon />
-                            </span>
-                        </div>
+                                <span style={{
+                                    paddingRight: '15px',
+                                }}>
+                                    <EditIcon />
+                                </span>
+                                <span style={{
+                                    paddingRight: '10px'
+                                }}>
+                                    <DeleteIcon />
+                                </span>
+                            </div>
+                        </ThemeProvider>
                 </Grid>
             </Grid>
         </Box>
