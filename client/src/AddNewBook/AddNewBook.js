@@ -63,7 +63,8 @@ function AddNewBook() {
             if (isBook === undefined) {
                 let newBook = {
                     bookTitle: bookTitle,
-                    contents: contentsList
+                    contents: contentsList,
+                    dateCreatedAt: new Date()
                 }
 
                 console.log(newBook)
@@ -73,7 +74,8 @@ function AddNewBook() {
             if (isBook !== undefined) {
                 books[isBookIndex] = {
                     bookTitle: bookTitle,
-                    contents: contentsList
+                    contents: contentsList,
+                    dateCreatedAt: books[isBookIndex].dateCreatedAt
                 }
 
                 localStorage.setItem('books', JSON.stringify(books))

@@ -10,6 +10,26 @@ import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './BooksListItem.css'
 
+let formatDateTime = (dateTimeString) => {
+    let today = new Date(dateTimeString)
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1 //As January is 0.
+    let yyyy = today.getFullYear()
+    let hours = today.getHours()
+    let minutes = today.getMinutes()
+
+    if (hours < 10) 
+        hours = '0' + hours
+    if (minutes < 10)
+        minutes = '0' + minutes
+
+    if (dd < 10) 
+        dd = '0' + dd
+    if (mm < 10) 
+        mm = '0' + mm
+    return (dd + '-' + mm + '-' + yyyy + ', ' + hours + ':' + minutes)
+}
+
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 const theme = createTheme({
@@ -58,7 +78,6 @@ export default function BooksListItem(props) {
                         <Typography component="span" sx={{  }}>
                             {props.book.bookTitle}      
                         </Typography>
-                        
                     </Grid>
                     <Grid 
                         item 
@@ -86,6 +105,21 @@ export default function BooksListItem(props) {
                                 </div>
                             </ThemeProvider>
                     </Grid>
+                </Grid>
+                <Grid
+                    item 
+                    xs={12} 
+                    sm={12} 
+                    md={12} 
+                    lg={12}>
+                    <Typography
+                    sx={{
+                        paddingLeft: 1,
+                        paddingBottom: 4
+                    }}
+                        variant="p">
+                            <b>Created At: </b>{formatDateTime(props.book.dateCreatedAt) || 'N/A'}
+                    </Typography>
                 </Grid>
             </Box>
         </Link>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -7,20 +7,28 @@ import SearchBook from './SearchBook.js';
 import './AllBooks.css'
 
 function AllBooks() {
-    const [booksList] = useState(localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [])
+    const [booksList] = useState(() => {
+        let books = localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : []
+        if (books) {
+            const sortedBooks = books.slice().sort((a, b) => new Date(b.dateCreatedAt).getTime() - new Date(a.dateCreatedAt).getTime())
+            console.log(sortedBooks)
+            return sortedBooks
+        }
+        return []
+    })
     const [search, setSearchTerm] = useState('')
 
     const [searchResults, setSearchResults] = useState([])
 
     let onSearch = (searchTerm) => {
-        console.log(searchTerm)
         setSearchTerm(searchTerm)
         getSearchResults(searchTerm)
     }
 
     let getSearchResults = (searchTerm) => {
         let results = booksList.filter((book) => book.bookTitle.toLowerCase().includes(searchTerm.toLowerCase()))
-        setSearchResults(results)
+        const sortedResults = results.slice().sort((a, b) => new Date(b.dateCreatedAt.getTime()) - new Date(a.dateCreatedAt).getTime())
+        setSearchResults(sortedResults)
     }
 
     const allBooks = booksList.map((book, index) => {
