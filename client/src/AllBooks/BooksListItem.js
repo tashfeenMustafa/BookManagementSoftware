@@ -15,20 +15,21 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 const theme = createTheme({
   components: {
     MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          margin: 'auto',
-          color: '#000'
+        styleOverrides: {
+            root: {
+                margin: 'auto',
+                color: '#000'
+            },
         },
-      },
     },
     MuiTypography: {
         styleOverrides: {
             root: {
-                color: '#000'
-            }
-        }
-    }
+                color: '#000',
+                margin: 'auto'
+            },
+        },
+    },
   },
 });
 
@@ -54,7 +55,7 @@ export default function BooksListItem(props) {
                         md={6} 
                         lg={6}>
                         <Checkbox {...label} />
-                        <Typography component="span" sx={{ margin: 'auto' }}>
+                        <Typography component="span" sx={{  }}>
                             {props.book.bookTitle}      
                         </Typography>
                         

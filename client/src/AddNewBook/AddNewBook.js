@@ -28,18 +28,23 @@ function AddNewBook() {
         if (pageParams !== '') {
             setDisableAddContentButton(false)
             
-            let newBook = {
-                bookTitle: bookTitle,
-                contents: contentsList
-            }
-            
             let books = localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : []
+            
+            let isBook = books.find(book => book.bookTitle === bookTitle)
 
-            books = [...books, newBook]
+            if (isBook === undefined) {
+                let newBook = {
+                    bookTitle: bookTitle,
+                    contents: contentsList
+                }
 
-            localStorage.setItem('books', JSON.stringify(books))
+                books = [...books, newBook]
+
+                localStorage.setItem('books', JSON.stringify(books))
+            }
         }
     }, [bookTitle, pageParams, contentsList])
+
 
     const handleAddContentButton = () => {
         setShowContent(!showAddContentBox)
