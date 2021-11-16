@@ -7,6 +7,32 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
 import PersonIcon from '@mui/icons-material/Person'
 import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+import './SideMenuItem.css'
+
+const theme = createTheme({
+  components: {
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          color: '#FFF'
+        },
+      },
+    },
+    MuiListItemIcon: {
+      styleOverrides: {
+        root: {
+          color: '#FFF'
+        }
+      }
+    },
+    MuiButtonBase: {
+      styleOverrides: {
+      }
+    },
+  },
+});
 
 export default function SideMenuItems() {
   let params = useParams()
@@ -15,15 +41,17 @@ export default function SideMenuItems() {
   return (
     <List>
       {[{text: 'Home', link: `/dashboard`}, {text: 'Books', link: `/books/`}, {text: 'Account Settings', link: '/account'}].map((menu, index) => (
-        <Link key={menu.text} to={menu.link}>
-          <ListItem button>
-            <ListItemIcon sx={{
-              color: '#FFF'
-            }}>
-              {index % 2 === 0 ? <LibraryBooksIcon /> : <PersonIcon />}
-            </ListItemIcon>
-            <ListItemText primary={menu.text} />
-          </ListItem>
+        <Link
+          key={menu.text} 
+          to={menu.link}>            
+            <ThemeProvider theme={theme}>
+              <ListItem button>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <LibraryBooksIcon /> : <PersonIcon />}
+                </ListItemIcon>
+                <ListItemText primary={menu.text} />
+              </ListItem>
+            </ThemeProvider>
         </Link>
       ))}
     </List>

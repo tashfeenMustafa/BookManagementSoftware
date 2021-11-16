@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import BooksListItem from './BooksListItem.js';
 import SearchBook from './SearchBook.js';
+import './AllBooks.css'
 
 function AllBooks() {
     const [booksList] = useState(localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [])
@@ -51,8 +52,10 @@ function AllBooks() {
             <SearchBook 
                 searchTerm={search}
                 onSearch={onSearch} />
-            <div className="add-new-book-btn">
-                <Link to="/add-new-book">
+            <div>
+                <Link
+                    className="addNewBookButton" 
+                    to="/add-new-book">
                     <Button sx={{
                     height: '45px'
                     }} 

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import './SaveBookName.css'
 
 export default function SaveBookName(props) {
     const handleChange = (event) => {
@@ -29,6 +30,7 @@ export default function SaveBookName(props) {
             </Grid>
             <Grid item xs={6}>
                 <Link
+                    className="saveBookButton"
                     onClick={handleClick}
                     to={`/books/${props.bookTitle}`}>
                     <Button 
