@@ -13,7 +13,7 @@ function AddNewBook() {
     let pageTitle = 'Add New Book'
     
     const [showContent, setShowContent] = useState(false)
-    const [bookTitle, setBookTitle] = useState('')
+    const [bookTitle, setBookTitle] = useState(() => bookTitleParams ? bookTitleParams : '')
     const [contentsList, setContents] = useState([])
 
     const handleAddContentButton = () => {
@@ -44,6 +44,7 @@ function AddNewBook() {
                     {bookTitleParams ? bookTitleParams : pageTitle}
             </Typography>
             <SaveBookName
+                type={bookTitleParams ? "params" : "empty"}
                 bookTitle={bookTitle}
                 handleSaveBookTitle={handleSaveBookTitle} />
             <Button 

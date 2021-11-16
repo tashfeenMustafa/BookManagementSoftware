@@ -19,7 +19,7 @@ export default function SaveBookName(props) {
                 }} 
                 value={props.bookTitle}
                 id="standard-basic" 
-                label="Add New Book" 
+                label={props.type === "empty" ? "Add New Book" : "Change Book Name"} 
                 variant="standard"
                 onChange={handleChange} />
             </Grid>
