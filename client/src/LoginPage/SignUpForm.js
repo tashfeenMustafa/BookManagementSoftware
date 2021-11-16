@@ -35,6 +35,7 @@ const CssTextField = styled(TextField)({
 export default function LoginForm(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [retypePassword, setRetypePassword] = useState('')
   const [message, setMessage] = useState(null)
   const [emailValidated, setEmailValidated] = useState(false)
 
@@ -48,7 +49,7 @@ export default function LoginForm(props) {
       event.preventDefault()
     }
     else {
-      setMessage('Login successful!')
+      setMessage('Signup successful!')
       console.log(email, password)
     }
   }
@@ -66,6 +67,13 @@ export default function LoginForm(props) {
       setMessage(null)
     }
     setPassword(event.target.value)
+  }
+
+  let handleRetypePasswordChange = (event) => {
+    if (message) {
+      setMessage(null)
+    }
+    setRetypePassword(event.target.value)
   }
 
   // Later validate on the server
@@ -118,6 +126,15 @@ export default function LoginForm(props) {
           autoComplete="current-password" 
           value={password}
           onChange={handlePasswordChange} />
+      </div>
+      <div>
+        <CssTextField 
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password" 
+          value={retypePassword}
+          onChange={handleRetypePasswordChange} />
       </div>
       <Link className="loginButton" to={`/dashboard`}>
         <Button
