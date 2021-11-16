@@ -5,8 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
 import PersonIcon from '@mui/icons-material/Person'
-import { Link } from 'react-router-dom'
-import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import './SideMenuItem.css'
@@ -35,12 +34,9 @@ const theme = createTheme({
 });
 
 export default function SideMenuItems() {
-  let params = useParams()
-  let user = params.user
-
   return (
     <List>
-      {[{text: 'Home', link: `/dashboard`}, {text: 'Books', link: `/books/`}, {text: 'Account Settings', link: '/account'}].map((menu, index) => (
+      {[{text: 'Home', link: `/dashboard`}, {text: 'Books', link: `/books/`}].map((menu, index) => (
         <Link
           key={menu.text} 
           to={menu.link}>            
