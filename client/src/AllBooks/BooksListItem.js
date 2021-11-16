@@ -2,20 +2,19 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export default function BooksListItem(props) {
     return (
         <Box 
         key={props.index} 
-        component="div" 
         sx={{ 
             margin: '1% 0 1% 0',
-            p: 2, 
+            p: 1, 
             border: '1px solid grey' 
         }}>
             <Grid 
@@ -27,19 +26,11 @@ export default function BooksListItem(props) {
                     sm={6} 
                     md={6} 
                     lg={6}>
-                    <FormGroup>
-                        <FormControlLabel 
-                        control={<Checkbox />} 
-                        label={ 
-                            <Typography
-                            sx={{
-                                width: '100%'
-                            }}>
-                                {props.book.bookTitle }      
-                            </Typography>
-                                
-                        } />
-                    </FormGroup>
+                    <Checkbox {...label} />
+                    <Typography component="span" sx={{ margin: 'auto' }}>
+                        {props.book.bookTitle }      
+                    </Typography>
+                    
                 </Grid>
                 <Grid 
                     item 
