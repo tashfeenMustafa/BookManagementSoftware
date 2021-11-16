@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import BooksListItem from './BooksListItem.js';
 import SearchBook from './SearchBook.js';
-import { books } from '../data.js';
 
 function AllBooks() {
-    const [booksList] = useState(books)
+    const [booksList] = useState(localStorage.getItem('books') ? JSON.parse(localStorage.getItem('books')) : [])
     const [search, setSearchTerm] = useState('')
 
     const [searchResults, setSearchResults] = useState([])
@@ -19,7 +18,7 @@ function AllBooks() {
     }
 
     let getSearchResults = (searchTerm) => {
-        let results = booksList.filter((book) => book.title.toLowerCase().includes(searchTerm.toLowerCase()))
+        let results = booksList.filter((book) => book.bookTitle.toLowerCase().includes(searchTerm.toLowerCase()))
         setSearchResults(results)
     }
 

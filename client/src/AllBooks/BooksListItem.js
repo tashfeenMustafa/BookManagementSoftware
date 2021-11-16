@@ -35,7 +35,7 @@ export default function BooksListItem(props) {
                             sx={{
                                 width: '100%'
                             }}>
-                                {props.book.title }      
+                                {props.book.bookTitle }      
                             </Typography>
                                 
                         } />
