@@ -313,13 +313,20 @@ export default function Template() {
                                                     onChange={() => handleOnSelectChange(row.id - 1, { id: row.id, title: row.documentTitle, docType: row.docType })}/>
                                             </TableCell>
                                             <TableCell className="editTitleColumn">
-                                                <EditIcon />
+                                                <EditIcon onClick={() => handleEditDocumentTitle(row.id - 1)} />
                                             </TableCell>
                                             <TableCell className="idColumn">
                                                 {row.id}
                                             </TableCell>
                                             <TableCell>
-                                                {row.documentTitle}
+                                                {
+                                                    editTitle[row.id - 1] ?
+                                                        <TextField 
+                                                            value={row.documentTitle} 
+                                                            variant="standard" />
+                                                    :
+                                                        row.documentTitle
+                                                }
                                                 <Switch
                                                     value={row.documentTitle}
                                                     checked={markChecked(row.documentTitle)}
@@ -346,12 +353,19 @@ export default function Template() {
                                                                     onChange={() => handleOnSelectChange(sector.sectorId - 1, { id: sector.sectorId, title: sector.sectorName, docType: sector.docType })}/>
                                                             </TableCell>
                                                             <TableCell className="editTitleColumn">
-                                                                <EditIcon />
+                                                                <EditIcon onClick={() => handleEditDocumentTitle(sector.sectorId - 1)} />
                                                             </TableCell>
                                                             <TableCell className="idColumn">
                                                             </TableCell>
                                                             <TableCell sx={{ paddingLeft: '43px' }}>
-                                                                {sector.sectorName}
+                                                                {
+                                                                    editTitle[sector.sectorId - 1] ?
+                                                                        <TextField 
+                                                                            value={sector.sectorName} 
+                                                                            variant="standard" />
+                                                                    :
+                                                                        sector.sectorName
+                                                                }
                                                             </TableCell>
                                                         </TableRow>
                                                         {
@@ -371,12 +385,19 @@ export default function Template() {
                                                                                 onChange={() => handleOnSelectChange(content.id - 1, { id: content.id, title: content.documentTitle, docType: content.docType })}/>
                                                                         </TableCell>
                                                                         <TableCell className="editTitleColumn">
-                                                                            <EditIcon />
+                                                                            <EditIcon onClick={() => handleEditDocumentTitle(content.id - 1)} />
                                                                         </TableCell>
                                                                         <TableCell className="idColumn">
                                                                         </TableCell>
                                                                         <TableCell sx={{ paddingLeft: '63px' }}>
-                                                                            {content.documentTitle}
+                                                                            {
+                                                                                editTitle[content.id - 1] ?
+                                                                                    <TextField 
+                                                                                        value={content.documentTitle} 
+                                                                                        variant="standard" />
+                                                                                :
+                                                                                    content.documentTitle
+                                                                            }
                                                                         </TableCell>
                                                                     </TableRow> 
                                                                 )
@@ -407,7 +428,9 @@ export default function Template() {
                                         <TableCell>
                                             {   
                                                 editTitle[row.id - 1] ?
-                                                    <TextField label={row.documentTitle} variant="standard" />
+                                                    <TextField 
+                                                        value={row.documentTitle} 
+                                                        variant="standard" />
                                                 :
                                                     row.documentTitle
                                             }
