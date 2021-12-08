@@ -1,0 +1,18 @@
+.editTitleColumn, .idColumn {
+    width: 9%;
+}
+.sectorTitle {
+    padding-left: 43px;
+}
+.sectorContentTitle {
+    padding-left: 63px;
+}
+.multipleReportsRow {
+    background-color: cadetblue;
+}
+.sectorRow-Investment, .sectorRow-Technical, .sectorRow-On-Funded {
+    background-color: cyan;
+}
+.sectorContentRow-Investment, .sectorContentRow-Technical, .sectorContentRow-On-Funded {
+    background-color: aliceblue;
+}

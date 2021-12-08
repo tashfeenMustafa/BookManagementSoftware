@@ -7,14 +7,14 @@ import ContentNumberOfPagesInput from './ContentNumberOfPagesInput';
 import ContentEditDeleteButton from './ContentEditDeleteButtons';
 import ContentTitleAndSelect from './ContentTitleAndSelect';
 
-const titleLabel = 'Content Title'
+/*const titleLabel = 'Content Title'
 const titleLabel1 = 'Content Title 1'
 const titleLabel2 = 'Content Title 2'
 
 const fileLabel = 'File Upload'
 const fileLabel1 = 'File Upload 1'
 const fileLabel2 = 'File Upload 2'
-
+*/
 const S = 'S'
 const S1 = 'S1'
 const S2 = 'S2'

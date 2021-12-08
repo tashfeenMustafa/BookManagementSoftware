@@ -4,7 +4,6 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks'
-import PersonIcon from '@mui/icons-material/Person'
 import { Link } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
@@ -33,17 +32,23 @@ const theme = createTheme({
   },
 });
 
+const menuItems = [
+  {text: 'Home', link: `/dashboard`, disabled: false, icon: <LibraryBooksIcon />}, 
+  {text: 'Books', link: `/books/`, disabled: true, icon: <LibraryBooksIcon />}, 
+  {text: 'Master', link: `/master/`, disabled: false, icon: <LibraryBooksIcon />}
+]
+
 export default function SideMenuItems() {
   return (
     <List>
-      {[{text: 'Home', link: `/dashboard`}, {text: 'Books', link: `/books/`}].map((menu, index) => (
+      {menuItems.map((menu, index) => (
         <Link
           key={menu.text} 
           to={menu.link}>            
             <ThemeProvider theme={theme}>
-              <ListItem button>
+              <ListItem button disabled={menu.disabled} >
                 <ListItemIcon>
-                  {index % 2 === 0 ? <LibraryBooksIcon /> : <PersonIcon />}
+                  {menu.icon}
                 </ListItemIcon>
                 <ListItemText primary={menu.text} />
               </ListItem>

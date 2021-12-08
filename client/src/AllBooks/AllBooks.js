@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -27,7 +27,7 @@ function AllBooks() {
 
     let getSearchResults = (searchTerm) => {
         let results = booksList.filter((book) => book.bookTitle.toLowerCase().includes(searchTerm.toLowerCase()))
-        const sortedResults = results.slice().sort((a, b) => new Date(b.dateCreatedAt.getTime()) - new Date(a.dateCreatedAt).getTime())
+        const sortedResults = results.slice().sort((a, b) => new Date(b.dateCreatedAt) - new Date(a.dateCreatedAt).getTime())
         setSearchResults(sortedResults)
     }
 

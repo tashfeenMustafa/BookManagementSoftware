@@ -6,6 +6,7 @@ import AllBooks from './AllBooks/AllBooks.js';
 import AddNewBook from './AddNewBook/AddNewBook.js';
 import { Routes, Route } from 'react-router-dom';
 import SignUpPage from './LoginPage/SignUpPage.js';
+import Master from './Master/Master.js';
 import './css/App.css';
 
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/books" element={<AllBooks />} />
             <Route path="/books/:bookTitle" element={<AddNewBook />} />
             <Route path="/add-new-book" element={<AddNewBook />} />
+            <Route path="/master" element={<Master />} />
           </Route>
         </Routes>
       </div>
