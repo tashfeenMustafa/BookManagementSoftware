@@ -6,6 +6,8 @@ import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import './LoginForm.css';
 
+const abortController = new AbortController();
+
 const CssTextField = styled(TextField)({
   '& label.Mui-focused': {
     color: '#FFF',
@@ -39,17 +41,32 @@ export default function LoginForm(props) {
   const [emailValidated, setEmailValidated] = useState(false)
 
   useEffect(() => {
-    localStorage.setItem('user', email)
-  }, [email])
+    return function cancel() {
+      abortController.abort()
+    }
+  }, [])
 
   let handleLoginSubmit = (event) => {
     if (!email || !password) {
       setMessage('Enter your email and password')
-      event.preventDefault()
     }
     else {
-      setMessage('Login successful!')
-      console.log(email, password)
+      fetch("http://localhost:3001/check_user", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        signal: AbortController.signal,
+        body: JSON.stringify({ email: email, password: password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        setMessage('Login successful!')
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      })
     }
   }
 
