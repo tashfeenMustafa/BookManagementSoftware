@@ -1,0 +1,231 @@
+create database book_mgmt_sftwre_db;
+use book_mgmt_sftwre_db;
+
+CREATE TABLE USER (
+	user_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(70) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(user_id)
+);
+
+INSERT INTO USER (email, password) VALUES ('tashfeen@gmail.com', '1234');
+
+SELECT * FROM USER;
+
+CREATE TABLE PDF (
+	pdf_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    pdf_link TEXT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(pdf_id)
+);
+
+CREATE TABLE MULTIPLE_REPORT_TYPES (
+	multiple_report_type_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    multiple_report_type_name VARCHAR(50) NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(multiple_report_type_id)
+);
+
+INSERT INTO MULTIPLE_REPORT_TYPES (multiple_report_type_name) VALUES 
+	('Investment'), ('Technical'), ('On-Funded');
+    
+SELECT * FROM MULTIPLE_REPORT_TYPES;
+
+CREATE TABLE BOOKS (
+	book_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    user_id MEDIUMINT,
+    adp_or_radp VARCHAR(4) NOT NULL,
+    draft_or_final VARCHAR(5) NOT NULL,
+    pdf_id MEDIUMINT,
+    fiscal_year VARCHAR(10) NOT NULL,
+    created_on DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    
+    CONSTRAINT PRIMARY KEY(book_id),
+    
+    CONSTRAINT BOOK_USER_USER_ID_FK FOREIGN KEY(user_id)
+		REFERENCES USER(user_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+	
+    CONSTRAINT BOOK_PDF_PDF_ID_FK FOREIGN KEY(pdf_id)
+		REFERENCES PDF(pdf_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+CREATE TABLE SECTOR_CONTENT_TYPES (
+	sector_content_type_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    sector_content_type_name TEXT,
+    
+    CONSTRAINT PRIMARY KEY(sector_content_type_id)
+);
+
+INSERT INTO SECTOR_CONTENT_TYPES (sector_content_type_name) VALUES
+	('cover'), ('characteristics'), ('summary'), ('details');
+    
+SELECT * FROM SECTOR_CONTENT_TYPES;
+
+CREATE TABLE DOCUMENT_TYPES (
+	document_type_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    document_type_name TEXT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_type_id)
+);
+
+INSERT INTO DOCUMENT_TYPES (document_type_name) VALUES
+	('cover'), ('inner_cover'), ('preface'), ('introduction'),
+    ('table_of_contents'), ('single_report'), ('comparison_report'),
+    ('multiple_report'), ('sector'), ('sector_content');
+    
+SELECT * FROM DOCUMENT_TYPES;
+
+CREATE TABLE DOCUMENTS (
+	document_id MEDIUMINT NOT NULL AUTO_INCREMENT,
+    book_id MEDIUMINT,
+    pdf_id MEDIUMINT,
+    document_title TEXT,
+    document_type_id MEDIUMINT,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT DOCUMENT_BOOK_BOOK_ID FOREIGN KEY(book_id)
+		REFERENCES BOOKS(book_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+        
+	CONSTRAINT DOCUMENT_PDF_PDF_ID FOREIGN KEY(pdf_id)
+		REFERENCES PDF(pdf_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+	
+    CONSTRAINT DOCUMENT_DOCUMENT_TYPE_DOCUMENT_TYPE_ID FOREIGN KEY(document_type_id)
+		REFERENCES DOCUMENT_TYPES(document_type_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+CREATE TABLE SINGLE_REPORT (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT SINGLE_REPORT_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE COVER (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT COVER_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE INNER_COVER (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT INNER_COVER_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE PREFACE (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT PREFACE_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE INTRODUCTION (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT INTRODUCTION_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE TABLE_OF_CONTENTS (
+	document_id MEDIUMINT NOT NULL,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT TABLE_OF_CONTENTS_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE MULTIPLE_REPORTS (
+	document_id MEDIUMINT NOT NULL,
+    multiple_report_type_id MEDIUMINT,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT MULTIPLE_REPORT_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+        
+	CONSTRAINT MULTIPLE_REPORT_MULTIPLE_REPORT_TYPES_MULTIPLE_REPORT_TYPES_ID FOREIGN KEY(multiple_report_type_id)
+		REFERENCES MULTIPLE_REPORT_TYPES(multiple_report_type_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+CREATE TABLE SECTORS (
+	document_id MEDIUMINT NOT NULL,
+    parent_multiple_report_id MEDIUMINT,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT SECTOR_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+	
+    CONSTRAINT SECTOR_MULTIPLE_REPORT_PARENT_MULTIPLE_REPORT_ID FOREIGN KEY(parent_multiple_report_id)
+		REFERENCES MULTIPLE_REPORTS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
+
+CREATE TABLE SECTOR_CONTENTS (
+	document_id MEDIUMINT NOT NULL,
+    parent_sector_id MEDIUMINT,
+    sector_content_type_id MEDIUMINT,
+    
+    CONSTRAINT PRIMARY KEY(document_id),
+    
+    CONSTRAINT SECTOR_CONTENT_DOCUMENT_DOCUMENT_ID FOREIGN KEY(document_id)
+		REFERENCES DOCUMENTS(document_id)
+		ON UPDATE CASCADE
+        ON DELETE CASCADE,
+        
+	CONSTRAINT SECTOR_CONTENT_SECTORS_PARENT_SECTOR_ID FOREIGN KEY(parent_sector_id)
+		REFERENCES SECTORS(document_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+        
+	CONSTRAINT SECTOR_CONTENT_SECTOR_CONTENT_TYPE_SECTOR_CONTENT_TYPE_ID FOREIGN KEY(sector_content_type_id)
+		REFERENCES SECTOR_CONTENT_TYPES(sector_content_type_id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL
+);
+
+

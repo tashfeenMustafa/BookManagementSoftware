@@ -3,24 +3,25 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 function EnglishOrBangla(props) {
-    const [alignment, setAlignment] = React.useState('left');
+    const [language, setLanguage] = React.useState('english');
 
-    const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+    const handleChange = (event) => {
+        setLanguage(event.target.value)
+        props.handleEnglishOrBangla(event.target.value)
     };
 
     return (
         <ToggleButtonGroup
-        value={alignment}
+        value={language}
         exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
+        onChange={handleChange}
+        aria-label="language option"
         >
-            <ToggleButton value="left" aria-label="left aligned">
-                বাংলা
-            </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
+            <ToggleButton value="english" aria-label="english">
                 English
+            </ToggleButton>
+            <ToggleButton value="bangla" aria-label="bangla">
+                বাংলা
             </ToggleButton>
         </ToggleButtonGroup>
     )

@@ -217,8 +217,7 @@ export default function Template() {
         let updatedCheckedState = []
 
         if (document.docType === 'multiple_report') {
-            console.log(position)
-            for (let i = position; i < position + 60; i++) {
+            for (let i = position; i < position + 76; i++) {
                 tempAllDocumentsCheckboxState[i] = !tempAllDocumentsCheckboxState[i]
                 if (tempAllDocumentsCheckboxState[i]) {
                     if (updatedTemplateForDetails[i] !== document) {
@@ -229,11 +228,9 @@ export default function Template() {
                     updatedTemplateForDetails[i] = {}
                 }
             }
-            console.log(updatedTemplateForDetails)
             updatedCheckedState = tempAllDocumentsCheckboxState
         }
-        else if (document.docType.includes('investment_sector') || document.docType.includes('technical_sector') || document.docType.includes('on_funded_sector')) {
-            console.log(position)
+        else if (document.docType.includes('investment_sector_parent') || document.docType.includes('technical_sector_parent') || document.docType.includes('on_funded_sector_parent')) {
             for (let i = position; i < position + 5; i++) {
                 tempAllDocumentsCheckboxState[i] = !tempAllDocumentsCheckboxState[i]
                 if (tempAllDocumentsCheckboxState[i]) {
@@ -245,7 +242,6 @@ export default function Template() {
                     updatedTemplateForDetails[i] = {}
                 }
             }
-            console.log(updatedTemplateForDetails)
             updatedCheckedState = tempAllDocumentsCheckboxState
         }
         else {

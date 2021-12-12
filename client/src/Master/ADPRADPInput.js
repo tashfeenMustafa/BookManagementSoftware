@@ -4,23 +4,24 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 
 function ADPRADPInput (props) {
-    const [alignment, setAlignment] = React.useState('left');
+    const [ADPorRADP, setADPorRADP] = React.useState('adp');
 
-    const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+    const handleChange = (event) => {
+        setADPorRADP(event.target.value)
+        props.handleADPorRADPChange(event.target.value)
     };
 
     return (
         <ToggleButtonGroup
-        value={alignment}
+        value={ADPorRADP}
         exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
+        onChange={handleChange}
+        aria-label="adp or radp"
         >
-            <ToggleButton value="left" aria-label="left aligned">
+            <ToggleButton value="adp" aria-label="adp option">
                 ADP
             </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
+            <ToggleButton value="radp" aria-label="radp option">
                 RADP
             </ToggleButton>
         </ToggleButtonGroup>

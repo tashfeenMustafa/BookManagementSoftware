@@ -3,24 +3,25 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
 function DraftOrFinal(props) {
-    const [alignment, setAlignment] = React.useState('left');
+    const [finalOrDraft, setFinalOrDraft] = React.useState('draft');
 
-    const handleAlignment = (event, newAlignment) => {
-        setAlignment(newAlignment);
+    const handleChange = (event) => {
+        setFinalOrDraft(event.target.value)
+        props.handleFinalOrDraft(event.target.value)
     };
 
     return (
         <ToggleButtonGroup
-        value={alignment}
+        value={finalOrDraft}
         exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
+        onChange={handleChange}
+        aria-label="final or draft option"
         >
-            <ToggleButton value="left" aria-label="left aligned">
-                Final
-            </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
+            <ToggleButton value="draft" aria-label="draft option">
                 Draft
+            </ToggleButton>
+            <ToggleButton value="final" aria-label="final option">
+                Final
             </ToggleButton>
         </ToggleButtonGroup>
     )
